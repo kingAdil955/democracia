@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Direitos e Deveres em Moçambique</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f7f6f1;--card:#fff;--tx:#1d2420;--mu:#5b655f;--bd:#dcdad0;--pr:#0b6b3a;--pr2:#e3f1e8;--dv:#9a5b00;--dv2:#fbefd9;--ac:#c8102e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a16;--card:#1d2520;--tx:#eef1ee;--mu:#a3aea7;--bd:#2f3a33;--pr:#5fd18d;--pr2:#17301f;--dv:#f2b45a;--dv2:#33260f;--ac:#ff6b81;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a16;--card:#1d2520;--tx:#eef1ee;--mu:#a3aea7;--bd:#2f3a33;--pr:#5fd18d;--pr2:#17301f;--dv:#f2b45a;--dv2:#33260f;--ac:#ff6b81;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pr);color:#fff;padding:28px 18px 36px;text-align:center;border-bottom:6px solid var(--ac)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{background:#0e2e1b}}
+header h1{margin:0 0 6px;font-size:clamp(1.6rem,5vw,2.4rem)}
+header p{margin:0 auto;max-width:560px;opacity:.95}
+main{max-width:820px;margin:-22px auto 0;padding:0 14px 40px}
+.search{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.search input{width:100%;font:inherit;padding:14px 16px;border:2px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx)}
+.search input:focus{outline:none;border-color:var(--pr)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{font:inherit;font-size:.9rem;padding:7px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--pr);color:#fff;border-color:var(--pr)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#08140d}}
+.count{margin:16px 2px 8px;color:var(--mu);font-size:.95rem}
+details{background:var(--card);border:1px solid var(--bd);border-left:6px solid var(--pr);border-radius:12px;margin-bottom:10px;padding:0}
+details.dever{border-left-color:var(--dv)}
+summary{cursor:pointer;padding:14px 16px;list-style:none;display:block}
+summary::-webkit-details-marker{display:none}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 9px;border-radius:6px;background:var(--pr2);color:var(--pr);margin-right:6px}
+.dever .tag{background:var(--dv2);color:var(--dv)}
+.cat{font-size:.8rem;color:var(--mu)}
+summary h3{margin:6px 0 2px;font-size:1.12rem}
+summary p{margin:0;color:var(--mu);font-size:.98rem}
+.more{padding:0 16px 16px;border-top:1px dashed var(--bd)}
+.more p{margin:12px 0 0}
+.base{margin-top:12px;font-size:.88rem;color:var(--mu);background:var(--bg);padding:8px 12px;border-radius:8px}
+.empty{text-align:center;padding:30px 10px;color:var(--mu)}
+h2{margin:34px 0 10px;font-size:1.3rem}
+.help{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.help div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.help b{display:block;color:var(--pr)}
+.note{margin-top:30px;padding:14px 16px;border-radius:12px;background:var(--dv2);color:var(--tx);font-size:.92rem;border:1px solid var(--bd)}
+footer{text-align:center;color:var(--mu);font-size:.85rem;padding:10px 14px 30px}
+mark{background:#ffe38a;color:#000;border-radius:3px;padding:0 1px}
+</style>
+</head>
+<body>
+<header>
+<h1>⚖️ Direitos e Deveres em Moçambique</h1>
+<p>Conheça os seus direitos e deveres numa linguagem simples. Pesquise, leia e saiba onde pedir ajuda.</p>
+</header>
+<main>
+<div class="search">
+<input id="q" type="search" placeholder="Pesquise: ex. salário, detenção, terra, violência, voto…" aria-label="Pesquisar" autocomplete="off">
+<div class="row" id="tipos"></div>
+<div class="row" id="cats"></div>
+</div>
+<div class="count" id="count" aria-live="polite"></div>
+<section id="lista"></section>
+
+<h2>Onde pedir ajuda</h2>
+<div class="help">
+<div><b>IPAJ</b>Instituto de Patrocínio e Assistência Jurídica: apoio jurídico gratuito a quem não tem condições de pagar advogado.</div>
+<div><b>Provedor de Justiça</b>Recebe queixas contra abusos e más práticas da Administração Pública.</div>
+<div><b>CNDH</b>Comissão Nacional dos Direitos Humanos: queixas sobre violações de direitos humanos.</div>
+<div><b>Ordem dos Advogados</b>OAM: encontrar advogados e orientação sobre a defesa dos seus direitos.</div>
+<div><b>Ministério Público e Tribunais</b>Para denunciar crimes e resolver conflitos, incluindo laborais, de família e de terras.</div>
+<div><b>Polícia (GAFMVV)</b>Gabinetes de Atendimento à Família e Menores Vítimas de Violência, nas esquadras.</div>
+</div>
+
+<div class="note"><b>Aviso:</b> este site oferece informação geral e simplificada, para fins educativos. Não substitui aconselhamento jurídico. As leis podem ser alteradas: confirme sempre o texto oficial no <i>Boletim da República</i> ou consulte um advogado ou o IPAJ.</div>
+</main>
+<footer>Direitos e Deveres MZ · Informação para todos os cidadãos</footer>
+
+<script>
+const D=[
+// DIREITOS
+["direito","Cidadania","Igualdade perante a lei","Todos os cidadãos são iguais, sem discriminação.","Todos têm os mesmos direitos e deveres, qualquer que seja a cor, raça, sexo, origem étnica, lugar de nascimento, religião, grau de instrução, posição social ou profissão. A lei também garante a igualdade entre homens e mulheres em todos os domínios.","Constituição da República de Moçambique (CRM)","discriminação igualdade género racismo"],
+["direito","Cidadania","Direito de votar e ser eleito","Cidadãos com 18 anos ou mais podem votar e candidatar-se a cargos públicos.","Para votar é preciso estar recenseado. O voto é pessoal, secreto e livre. Todo o cidadão tem também o direito de participar na vida política e de ser escolhido para cargos públicos, nos termos da lei.","CRM; leis eleitorais","eleições voto recenseamento política"],
+["direito","Pessoa","Direito à vida e à integridade pessoal","Ninguém pode ser morto, torturado ou tratado de forma cruel ou degradante.","A vida humana é inviolável e não existe pena de morte. É proibida a tortura e os tratamentos desumanos, tanto por particulares como por agentes do Estado.","CRM","vida tortura violência polícia"],
+["direito","Pessoa","Honra, imagem e privacidade","Tem direito ao seu bom nome, à sua imagem e à reserva da vida privada.","A sua casa e a sua correspondência são invioláveis. Em regra, a casa só pode ser revistada com mandado de uma autoridade competente.","CRM","privacidade casa busca difamação"],
+["direito","Liberdades","Liberdade de expressão e de imprensa","Pode exprimir as suas ideias e receber informação.","Todos têm direito a opinar, a informar-se e a divulgar ideias, e a imprensa é livre. Estas liberdades têm limites, como o respeito pela honra e pelos direitos dos outros.","CRM","expressão imprensa jornalismo opinião liberdade"],
+["direito","Liberdades","Direito à informação pública","Pode pedir informação a instituições públicas.","Qualquer pessoa pode requerer informação a órgãos do Estado e entidades que gerem dinheiro ou serviços públicos. Em regra, devem responder dentro de prazos definidos por lei.","Lei do Direito à Informação (Lei n.º 34/2014)","informação transparência pedir documentos"],
+["direito","Liberdades","Reunião, manifestação e associação","Pode juntar-se, manifestar-se pacificamente e criar associações.","As manifestações devem ser pacíficas e comunicadas previamente às autoridades. Pode criar ou aderir a associações, partidos e organizações, desde que os fins sejam legais.","CRM; Lei de Reunião e Manifestação (Lei n.º 9/91)","manifestação marcha associação partido reunião"],
+["direito","Liberdades","Liberdade de religião e consciência","Pode praticar, mudar ou não ter religião.","O Estado é laico. Ninguém pode ser perseguido, privado de direitos ou obrigado a seguir uma religião por causa das suas crenças.","CRM","religião igreja mesquita crença"],
+["direito","Justiça","Direitos de quem é detido","Tem direito a saber porque foi detido, a ter advogado e a ser apresentado ao juiz.","Ao ser detido deve ser informado dos motivos, pode contactar a família e um advogado e, em regra, deve ser apresentado a um juiz em 48 horas. Ninguém pode ser mantido preso sem base legal.","CRM; Código de Processo Penal","detenção prisão polícia advogado preso 48 horas"],
+["direito","Justiça","Presunção de inocência e defesa","Ninguém é culpado até ser condenado por um tribunal.","Todo o arguido tem direito a defender-se, a ser ouvido e a ter um julgamento justo, sem ser tratado como culpado antes da sentença.","CRM","julgamento tribunal inocência defesa"],
+["direito","Justiça","Assistência jurídica gratuita","Quem não pode pagar advogado tem direito a apoio.","O IPAJ presta assistência e patrocínio jurídico a cidadãos sem meios económicos, em processos de vários tipos.","CRM; Lei do IPAJ","advogado gratuito IPAJ apoio jurídico pobre"],
+["direito","Trabalho","Direitos do trabalhador","Contrato, salário justo, descanso, férias e segurança no trabalho.","O trabalhador tem direito a salário (nunca inferior ao mínimo do seu sector), a descanso semanal, a férias anuais pagas, a segurança e higiene no trabalho, e a não ser despedido sem justa causa. A duração normal do trabalho é, em regra, de 8 horas por dia e 48 por semana. As trabalhadoras têm direito a licença de maternidade paga.","Lei do Trabalho (Lei n.º 23/2007)","emprego salário férias despedimento patrão licença maternidade horas"],
+["direito","Trabalho","Sindicatos e greve","Pode aderir a sindicatos e fazer greve.","Os trabalhadores podem organizar-se em sindicatos, negociar colectivamente e exercer o direito à greve, dentro das regras previstas na lei.","CRM; Lei do Trabalho","sindicato greve negociação"],
+["direito","Família","Casamento e igualdade na família","Casamento livre, com igualdade entre os cônjuges.","O casamento exige consentimento livre e idade mínima de 18 anos. Marido e mulher têm iguais direitos e responsabilidades na família e na educação dos filhos.","Lei da Família (Lei n.º 22/2019); Lei das Uniões Prematuras (Lei n.º 19/2019)","casamento família união prematura divórcio herança"],
+["direito","Família","Protecção contra a violência doméstica","Ninguém deve sofrer violência em casa.","A violência física, psicológica, sexual ou económica na família é crime. A vítima pode apresentar queixa à polícia, ao Ministério Público ou a organizações de apoio e pedir medidas de protecção.","Lei da Violência Doméstica (Lei n.º 29/2009)","violência doméstica agressão mulher marido queixa"],
+["direito","Família","Direitos da criança","Protecção, educação, saúde e nome desde o nascimento.","Toda a criança tem direito a registo de nascimento, a viver com protecção, a ir à escola, a cuidados de saúde e a ser protegida contra o trabalho infantil, abusos e exploração.","Lei da Criança (Lei n.º 7/2008)","criança menor registo abuso trabalho infantil"],
+["direito","Terra e ambiente","Direito sobre a terra (DUAT)","A terra é do Estado, mas pode ter direito de uso e aproveitamento.","A terra não pode ser vendida, hipotecada ou penhorada. Pessoas e comunidades locais podem ter o DUAT, e as comunidades têm direitos por ocupação tradicional, reconhecidos sem necessidade de título. Em projectos de investimento, as comunidades devem ser consultadas.","Lei de Terras (Lei n.º 19/97)","terra DUAT machamba comunidade propriedade investimento"],
+["direito","Terra e ambiente","Ambiente equilibrado","Tem direito a viver num ambiente saudável.","Todos têm direito a um ambiente equilibrado e o dever de o defender, incluindo contra a poluição e a destruição de recursos naturais.","CRM; Lei do Ambiente (Lei n.º 20/97)","ambiente poluição floresta rio lixo"],
+["direito","Saúde e educação","Direito à saúde","Acesso a cuidados de saúde.","Todos têm direito à assistência médica e sanitária, nos termos da lei, através do Serviço Nacional de Saúde.","CRM","saúde hospital médico doença"],
+["direito","Saúde e educação","Direito à educação","Ensino primário público gratuito.","Todo o cidadão tem direito à educação. O ensino primário público é gratuito e obrigatório, e o Estado promove o acesso aos outros níveis de ensino.","CRM; Lei do Sistema Nacional de Educação","escola ensino propina educação estudar"],
+["direito","Cidadania","Direitos do consumidor","Produtos seguros, informação clara e reclamação.","O consumidor tem direito à qualidade e segurança dos produtos e serviços, a informação clara sobre preços e características, e a reclamar e ser indemnizado em caso de prejuízo.","Lei de Defesa do Consumidor (Lei n.º 22/2009)","consumidor compras preço reclamação garantia loja"],
+// DEVERES
+["dever","Cidadania","Respeitar a Constituição e as leis","Cumprir as leis e respeitar as autoridades legítimas.","Todos, nacionais e estrangeiros no território, devem cumprir a Constituição e as leis, e respeitar as decisões legítimas dos órgãos do Estado.","CRM","lei constituição obedecer"],
+["dever","Cidadania","Respeitar os direitos dos outros","A sua liberdade termina onde começa a dos outros.","Cada pessoa deve respeitar a vida, a dignidade, a honra e os bens dos outros, e tratar os demais sem discriminação nem violência.","CRM","respeito dignidade convivência"],
+["dever","Cidadania","Pagar impostos","Contribuir para as despesas públicas.","Os impostos financiam escolas, hospitais, estradas e serviços públicos. Todos devem contribuir de acordo com a lei, e as empresas e comerciantes devem cumprir as obrigações fiscais.","CRM; legislação fiscal","impostos taxa imposto fiscal AT"],
+["dever","Cidadania","Participar na vida cívica e votar","O voto é um dever cívico.","Recensear-se e votar fazem parte da participação dos cidadãos na construção do país. Colaborar com a justiça, quando chamado, também é um dever.","CRM; leis eleitorais","voto eleições recenseamento cidadania"],
+["dever","Cidadania","Defender a pátria","Servir o país, incluindo o serviço militar.","Defender a independência, a soberania e a integridade do país é dever de todos. O serviço militar é obrigatório nos termos da lei.","CRM; Lei do Serviço Militar","serviço militar defesa pátria"],
+["dever","Terra e ambiente","Proteger o ambiente e os bens públicos","Cuidar do que é de todos.","Deve evitar poluir, queimadas descontroladas e desperdício de recursos, e conservar o património público, como escolas, estradas, água e electricidade.","CRM; Lei do Ambiente","ambiente património público bens conservar"],
+["dever","Família","Deveres dos pais para com os filhos","Sustentar, proteger e educar os filhos.","Os pais devem assegurar alimentação, saúde e educação dos filhos, protegê-los de abusos e matriculá-los na escola. Os filhos, por sua vez, devem respeitar e, quando necessário, auxiliar os pais.","Lei da Família; Lei da Criança","pais filhos alimentos pensão educação"],
+["dever","Trabalho","Deveres do trabalhador","Assiduidade, pontualidade e cumprimento das tarefas.","O trabalhador deve cumprir o contrato, ser assíduo e pontual, obedecer a ordens legítimas, guardar sigilo profissional e zelar pelos bens da empresa.","Lei do Trabalho (Lei n.º 23/2007)","trabalhador obrigações contrato empresa"],
+["dever","Trabalho","Deveres do empregador","Pagar salário, respeitar a lei e garantir segurança.","O empregador deve pagar o salário a tempo, inscrever o trabalhador na segurança social, garantir condições seguras de trabalho e respeitar a dignidade e os direitos do trabalhador.","Lei do Trabalho (Lei n.º 23/2007)","patrão empregador salário segurança social INSS"]
+];
+const $=s=>document.querySelector(s);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const cats=["Todas",...new Set(D.map(d=>d[1]))];
+let tipo="todos",cat="Todas";
+function chips(el,items,get,set){el.innerHTML="";items.forEach(([v,l])=>{const b=document.createElement("button");b.className="chip";b.textContent=l;b.setAttribute("aria-pressed",String(get()===v));b.onclick=()=>{set(v);render()};el.appendChild(b)})}
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function render(){
+chips($("#tipos"),[["todos","Tudo"],["direito","Direitos"],["dever","Deveres"]],()=>tipo,v=>tipo=v);
+chips($("#cats"),cats.map(c=>[c,c]),()=>cat,v=>cat=v);
+const q=norm($("#q").value.trim()).split(/\s+/).filter(Boolean);
+const r=D.filter(d=>(tipo==="todos"||d[0]===tipo)&&(cat==="Todas"||d[1]===cat)&&q.every(w=>norm(d.slice(1).join(" ")).includes(w)));
+$("#count").textContent=r.length+(r.length===1?" resultado":" resultados");
+$("#lista").innerHTML=r.length?r.map(d=>`<details class="${d[0]}"><summary><span class="tag">${d[0]==="direito"?"Direito":"Dever"}</span><span class="cat">${esc(d[1])}</span><h3>${esc(d[2])}</h3><p>${esc(d[3])}</p></summary><div class="more"><p>${esc(d[4])}</p><div class="base"><b>Base legal:</b> ${esc(d[5])}</div></div></details>`).join(""):'<div class="empty">Nada encontrado. Tente outra palavra, por exemplo “trabalho”, “terra” ou “polícia”.</div>';
+}
+$("#q").addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
